@@ -108,6 +108,17 @@ h3{margin:0;font-size:22px;font-weight:700}
   <div class="kicker">02 / Both sides</div>
   <h2>It checks the AI. It also checks us.</h2>
   <p class="intro">Most tools that check AI look only at the AI. But the answer is shaped by the question, and the person asking is also a source of error. Half of this project is about that.</p>
+  <div style="margin-top:36px">
+    <h3 style="margin:0;font-size:24px">Why does AI follow us?</h3>
+    <p class="intro" style="margin-top:10px">Part of how AI models are trained is people rating their answers, and people tend to reward answers that agree with them. So our bias goes into the model, and the model hands it back to us.</p>
+    <div class="row" style="margin-top:24px">
+      <div class="card" style="flex:1 1 200px;padding:22px;gap:8px"><div class="step">1 / HUMAN</div><p style="font-weight:600;color:#0A0A0A">Asks with a bias or an assumption.</p></div>
+      <div class="card" style="flex:1 1 200px;padding:22px;gap:8px"><div class="step">2 / AI</div><p style="font-weight:600;color:#0A0A0A">Trained to please, so it agrees.</p></div>
+      <div class="card" style="flex:1 1 200px;padding:22px;gap:8px"><div class="step">3 / HUMAN</div><p style="font-weight:600;color:#0A0A0A">Trusts the confident answer and rates it well.</p></div>
+      <div class="card" style="flex:1 1 200px;padding:22px;gap:8px"><div class="step">4 / TRAINING</div><p style="font-weight:600;color:#0A0A0A">The agreement gets reinforced.</p></div>
+    </div>
+    <div class="band" style="margin:16px 0 36px;padding:24px 28px;font-size:20px;line-height:1.4;font-weight:700">Human bias trains the AI. The AI flatters the human. Checking only the AI misses half the problem.</div>
+  </div>
   <div class="row">
     <div class="card wide">
       <h3 style="font-size:24px">The AI side</h3>
@@ -156,6 +167,13 @@ h3{margin:0;font-size:22px;font-weight:700}
       <p>Most of the time the verdict is "continue" and you see nothing.</p>
     </div>
   </div>
+  <h3 style="margin:48px 0 0;font-size:24px">Who it helps</h3>
+  <div class="row" style="margin-top:20px">
+    <div class="card"><h3>Everyday AI users</h3><p>People using ChatGPT, Claude and similar tools. It catches mistakes in their own work, right now.</p></div>
+    <div class="card"><h3>Owners of their own or local models</h3><p>Companies running AI on their own hardware. It catches mistakes now, and the feedback it collects can help improve their model over time.</p></div>
+    <div class="card"><h3>Teams that approve AI work</h3><p>Anyone signing off on what AI produces. It shows when to look and what to look at, so approvals stop being rubber stamps.</p></div>
+  </div>
+  <p class="intro" style="font-size:16px">Because it checks the person too, the feedback it collects is cleaner: it can tell "dismissed because the evidence says so" from "dismissed because I did not like the answer".</p>
 </div>
 
 <!-- 04 UNDER THE HOOD -->
