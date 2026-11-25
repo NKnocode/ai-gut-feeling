@@ -76,11 +76,15 @@ h3{margin:0;font-size:22px;font-weight:700}
 .more[open] summary::after{content:"\2212"}
 .more[open] summary{background:#0A0A0A;color:#FFFFFF}
 .jump{position:sticky;top:0;z-index:10;background:#FFFFFF;border-bottom:2px solid #0A0A0A}
-.jump .w{display:flex;gap:8px;overflow-x:auto;padding-top:8px;padding-bottom:8px;scrollbar-width:none}
+.jump .w{display:flex;align-items:center;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
 .jump .w::-webkit-scrollbar{display:none}
-.jump a{flex:0 0 auto;min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center;padding:8px 14px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;font-weight:600;text-decoration:none;border:2px solid transparent;white-space:nowrap}
-.jump a:hover{border-color:#0A0A0A}
-.jump a.help{background:#C6F432;border-color:#0A0A0A}
+.jump .lbl{flex:0 0 auto;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:#5C5C5C;text-transform:uppercase;letter-spacing:0.06em;padding-right:4px}
+.jump a{flex:0 0 auto;min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center;padding:8px 14px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;font-weight:600;text-decoration:none;border:2px solid #0A0A0A;background:#FFFFFF;color:#0A0A0A;white-space:nowrap}
+.jump a:hover,.jump a.on{background:#0A0A0A;color:#FFFFFF}
+.jump a.help{background:#C6F432;color:#0A0A0A}
+.jump a.help.on{background:#0A0A0A;color:#FFFFFF}
+.jump .more-r{position:absolute;top:0;right:0;bottom:2px;width:64px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;box-sizing:border-box;background:linear-gradient(to right,rgba(255,255,255,0),#FFFFFF 55%);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:22px;font-weight:600;pointer-events:none}
+.jump.end .more-r{display:none}
 [id^="s-"]{scroll-margin-top:72px}
 .tabs{display:flex;gap:0;margin-top:40px;border:2px solid #0A0A0A;align-self:flex-start;width:fit-content;max-width:100%}
 .tabbtn{min-height:44px;padding:10px 18px;border:0;background:#FFFFFF;color:#0A0A0A;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer}
@@ -108,7 +112,8 @@ h3{margin:0;font-size:22px;font-weight:700}
 </div>
 
 <nav class="jump" aria-label="Page sections">
-  <div class="w">
+  <div class="w" id="jumpw">
+    <span class="lbl">Jump to</span>
     <a href="#s-idea">The idea</a>
     <a href="#s-sides">Both sides</a>
     <a href="#s-how">How it works</a>
@@ -118,6 +123,7 @@ h3{margin:0;font-size:22px;font-weight:700}
     <a href="#s-belief">What I believe</a>
     <a href="#s-help" class="help">Help me test it</a>
   </div>
+  <span class="more-r" aria-hidden="true">&rsaquo;</span>
 </nav>
 
 <!-- HERO -->
@@ -524,6 +530,34 @@ h3{margin:0;font-size:22px;font-weight:700}
   }
   tabs.forEach(function (t) { t.addEventListener('click', function () { showTab(t); }); });
   if (tabs.length) { showTab(tabs[0]); }
+
+  var jump = document.querySelector('.jump');
+  var jw = document.getElementById('jumpw');
+  var links = Array.prototype.slice.call(jw.querySelectorAll('a'));
+  function jumpEnd() {
+    var last = links[links.length - 1];
+    jump.classList.toggle('end', last.getBoundingClientRect().right <= jw.getBoundingClientRect().right - 8);
+  }
+  jw.addEventListener('scroll', jumpEnd);
+  window.addEventListener('resize', jumpEnd);
+  jumpEnd();
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) { return; }
+        links.forEach(function (a) {
+          var on = a.getAttribute('href') === '#' + e.target.id;
+          a.classList.toggle('on', on);
+          if (on) { jw.scrollTo({ left: a.offsetLeft - 24, behavior: 'smooth' }); }
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    links.forEach(function (a) {
+      var t = document.getElementById(a.getAttribute('href').slice(1));
+      if (t) { io.observe(t); }
+    });
+  }
 })();
 </script>
 </body>
