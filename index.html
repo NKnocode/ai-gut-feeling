@@ -191,7 +191,8 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="card" style="flex:1 1 200px;padding:22px;gap:8px"><div class="step">3 / HUMAN</div><p style="font-weight:600;color:#0A0A0A">Trusts the confident answer and rates it well.</p></div>
       <div class="card" style="flex:1 1 200px;padding:22px;gap:8px"><div class="step">4 / TRAINING</div><p style="font-weight:600;color:#0A0A0A">The agreement gets reinforced.</p></div>
     </div>
-    <div class="band" style="margin:16px 0 36px;padding:24px 28px;font-size:20px;line-height:1.4;font-weight:700">Human bias trains the AI. The AI flatters the human. Checking only the AI misses half the problem.</div>
+    <div class="band" style="margin:16px 0 12px;padding:24px 28px;font-size:20px;line-height:1.4;font-weight:700">Human bias trains the AI. The AI flatters the human. Checking only the AI misses half the problem.</div>
+    <p style="margin:0 0 36px;font-size:14px;line-height:1.5;color:#5C5C5C">Sources: <a href="https://arxiv.org/abs/2310.13548" target="_blank" rel="noopener">Towards Understanding Sycophancy in Language Models</a> (Sharma and others, 2023); <a href="https://www.aisi.gov.uk/research/ask-dont-tell-reducing-sycophancy-in-large-language-models" target="_blank" rel="noopener">Ask don't tell: Reducing sycophancy in large language models</a> (UK AI Security Institute, 2026).</p>
   </div>
   <div class="tabs" role="tablist" aria-label="Which side">
     <button type="button" class="tabbtn" role="tab" id="tab-human" aria-controls="panel-human" aria-selected="true">The human side</button>
@@ -233,7 +234,7 @@ h3{margin:0;font-size:22px;font-weight:700}
     <div class="card">
       <div class="step">STEP 01</div>
       <h3>Plugs in</h3>
-      <p>It is a plugin for the AI tool you already use. The first version is for Claude Code, because that tool lets outside code step in while the AI is working. You keep working where you work.</p>
+      <p>It is a plugin for the AI tool you already use. The first version is for Claude Code, because that tool lets a plugin step in automatically while the AI works. A version for chat tools such as Claude and ChatGPT comes after; there it checks when asked.</p>
     </div>
     <div class="card">
       <div class="step">STEP 02</div>
@@ -249,8 +250,8 @@ h3{margin:0;font-size:22px;font-weight:700}
   </div>
   <h3 style="margin:48px 0 0;font-size:24px">Who it helps</h3>
   <div class="row swipe" style="margin-top:20px">
-    <div class="card"><h3>People working with AI tools</h3><p>Anyone using an AI tool that lets a plugin step in during the work, starting with Claude Code. It catches mistakes in their own work, right as they happen.</p></div>
-    <div class="card"><h3>Owners of their own or local models</h3><p>Companies running AI on their own hardware. It catches mistakes now, and the feedback it collects can help improve their model over time.</p></div>
+    <div class="card"><h3>People working with AI tools</h3><p>Anyone using an AI tool that lets a plugin step in during the work, starting with Claude Code. It catches mistakes in their own work, right as they happen. A version for chat tools comes after.</p></div>
+    <div class="card"><h3>Companies that build or run their own AI systems</h3><p>Later. The same checker can be built into their system and run on their own hardware, so nothing leaves the building. It gives them a record of where their AI goes wrong, which they can use to improve it.</p></div>
     <div class="card"><h3>Teams that approve AI work</h3><p>Anyone signing off on what AI produces. It shows when to look and what to look at, so approvals stop being rubber stamps.</p></div>
   </div>
   <p class="intro" style="font-size:16px">Because it checks the person too, the feedback it collects is cleaner: it can tell "dismissed because the evidence says so" from "dismissed because I did not like the answer".</p>
@@ -278,7 +279,7 @@ h3{margin:0;font-size:22px;font-weight:700}
     </div>
     <div class="card">
       <h3>A record that learns</h3>
-      <p>Every verdict is logged and later marked right or wrong. Today the judgment is written by hand. The marked record is what can turn it, over time, into a learned one: which steps tend to end badly, and which checks are worth making.</p>
+      <p>Every verdict is logged, in a file kept on your own machine, and later marked right or wrong. Today the judgment is written by hand. The marked record is what can turn it, over time, into a learned one: which steps tend to end badly, and which checks are worth making.</p>
     </div>
   </div>
   </details>
@@ -426,12 +427,20 @@ h3{margin:0;font-size:22px;font-weight:700}
   <h2>Straight answers.</h2>
   <div class="qa">
     <details>
+      <summary>Where can I use it?</summary>
+      <p>In two ways. As a plugin, first for Claude Code: it checks automatically and the AI cannot skip it. Later as a connector for chat tools such as Claude and ChatGPT: there the AI calls it when asked, so it is helpful but not automatic. It cannot work in a tool that allows neither.</p>
+    </details>
+    <details>
+      <summary>Does it see or keep my data?</summary>
+      <p>The plugin sees what your AI already sees, and nothing more. Its rules and its record are files on your own computer. Nothing is sent to me. The connector version is different: it runs on my server, so what the AI sends for checking passes through it.</p>
+    </details>
+    <details>
       <summary>Why not just a prompt or a skill?</summary>
       <p>A prompt or a skill is a note the AI reads, and may or may not follow. It is checked by the same AI that made the mistake, and it cannot step in before a bad action. This runs from outside, at fixed moments, whether the AI wants it or not. If a strong skill turns out to do just as well, that is the answer, and I will publish the skill.</p>
     </details>
     <details>
       <summary>Isn't this just another agent that checks?</summary>
-      <p>Part of it is: the judge is an AI model. Three things around it are not. The tool starts the check at fixed moments, so the working AI cannot skip it. Plain code runs before any model is asked. And the judge sees only the evidence, never the conversation that led to the mistake. Whether those three things matter is a test, not an opinion: the same checks will also be run as an ordinary checking agent that the AI is told to call, on the same tasks. If that does as well, this is just an agent, and I will say so.</p>
+      <p>Part of it is: the judge is an AI model. Three things around it are not. The tool starts the check at fixed moments, so the working AI cannot skip it. Plain code runs before any model is asked. And the judge sees only the evidence and the exchange being checked, not the reasoning that led to the mistake. Whether those three things matter is a test, not an opinion: the same checks will also be run as an ordinary checking agent that the AI is told to call, on the same tasks. If that does as well, this is just an agent, and I will say so.</p>
     </details>
     <details>
       <summary>Which AI does it use?</summary>
@@ -456,10 +465,6 @@ h3{margin:0;font-size:22px;font-weight:700}
     <details>
       <summary>Does it guarantee the truth?</summary>
       <p>No. It checks what it can see against evidence, and says clearly when something cannot be verified.</p>
-    </details>
-    <details>
-      <summary>Does it work in every AI?</summary>
-      <p>No. It works where the AI tool lets a plugin step in during the work. Ordinary chat apps mostly do not. The first version starts with one tool.</p>
     </details>
     <details>
       <summary>What if the AI companies build it themselves?</summary>
@@ -489,7 +494,7 @@ h3{margin:0;font-size:22px;font-weight:700}
   <div class="cta">
     <div class="kicker">08 / Where it stands</div>
     <h2 style="margin:0;font-size:clamp(28px,3.6vw,42px);line-height:1.1">Concept stage. Next: a fair test.</h2>
-    <p>Nothing here is built yet. The first prototype will be used on real work and measured against normal AI and a strong skill on the same tasks: real mistakes caught, false alarms, and time added. It earns its place only if it prevents mistakes they miss.</p>
+    <p>Nothing here is built yet. The first prototype will be used on real work and measured against normal AI, a strong skill and an ordinary checking agent on the same tasks: real mistakes caught, false alarms, and time added. It earns its place only if it prevents mistakes they miss.</p>
     <p><b>You can help now.</b> Tell me the last AI mistake you caught, and whether AI ever agreed with you when you were wrong. Three short questions, no sign-in. Real cases are what the test will be built from.</p>
     <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfS1Oke-R8HRkpaZOLpzZ50HY5pA6RM48Zva1s7uOXdNx7wmw/viewform" target="_blank" rel="noopener">Answer three questions (2 minutes)</a>
   </div>
