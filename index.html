@@ -118,6 +118,23 @@ h3{margin:0;font-size:22px;font-weight:700}
 .cta p{margin:0;font-size:18px;line-height:1.6;max-width:760px}
 .btn{align-self:flex-start;min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center;padding:12px 22px;background:#0A0A0A;color:#FFFFFF;font-weight:700;font-size:16px;text-decoration:none;margin-top:6px}
 .foot{margin-top:40px;display:flex;flex-direction:column;gap:6px;font-size:15px;line-height:1.6;color:#5C5C5C;max-width:760px}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:28px}
+.grid .ex{flex:none}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.more-btn{margin-top:24px;min-height:48px;padding:12px 20px;border:2px solid #0A0A0A;background:#FFFFFF;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer}
+.more-btn:hover{background:#0A0A0A;color:#FFFFFF}
+
+[hidden]{display:none !important}
+/* preview: alignment */
+.sec{padding-top:88px}
+.intro,.sec > p{max-width:760px}
+.row{align-items:stretch}
+.card h3{margin:0}
+/* preview: subtle reveal */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
@@ -185,7 +202,7 @@ h3{margin:0;font-size:22px;font-weight:700}
   <div style="margin-top:36px">
     <h3 style="margin:0;font-size:24px">Why does AI follow us?</h3>
     <p class="intro" style="margin-top:10px">Part of how AI models are trained is people rating their answers, and people tend to reward answers that agree with them. So our bias goes into the model, and the model hands it back to us.</p>
-    <div class="row swipe" style="margin-top:24px">
+    <div class="row" style="margin-top:24px">
       <div class="card" style="flex:1 1 200px;padding:22px;gap:8px"><div class="step">1 / HUMAN</div><p style="font-weight:600;color:#0A0A0A">Asks with a bias or an assumption.</p></div>
       <div class="card" style="flex:1 1 200px;padding:22px;gap:8px"><div class="step">2 / AI</div><p style="font-weight:600;color:#0A0A0A">Trained to please, so it agrees.</p></div>
       <div class="card" style="flex:1 1 200px;padding:22px;gap:8px"><div class="step">3 / HUMAN</div><p style="font-weight:600;color:#0A0A0A">Trusts the confident answer and rates it well.</p></div>
@@ -249,7 +266,7 @@ h3{margin:0;font-size:22px;font-weight:700}
     </div>
   </div>
   <h3 style="margin:48px 0 0;font-size:24px">Who it helps</h3>
-  <div class="row swipe" style="margin-top:20px">
+  <div class="row" style="margin-top:20px">
     <div class="card"><h3>People working with AI tools</h3><p>Anyone using an AI tool that lets a plugin step in during the work, starting with Claude Code. It catches mistakes in their own work, right as they happen. A version for chat tools comes after.</p></div>
     <div class="card"><h3>Companies that build or run their own AI systems</h3><p>Later. The same checker can be built into their system and run on their own hardware, so nothing leaves the building. It gives them a record of where their AI goes wrong, which they can use to improve it.</p></div>
     <div class="card"><h3>Teams that approve AI work</h3><p>Anyone signing off on what AI produces. It shows when to look and what to look at, so approvals stop being rubber stamps.</p></div>
@@ -274,8 +291,8 @@ h3{margin:0;font-size:22px;font-weight:700}
       <p>What code cannot decide goes to a second model that did not write the answer and sees only the evidence. It writes its own verification questions and answers them from the sources, not from the draft. It may always say "cannot verify".</p>
     </div>
     <div class="card">
-      <h3>The request is restated</h3>
-      <p>Before judging a request, the judge rewrites it as a neutral question. "Prove A is faster" becomes "which is faster". It checks six documented patterns: confirmation, anchoring, availability, pressure, framing, and constraints lost in a long task.</p>
+      <h3>The request is checked too</h3>
+      <p>Before judging the answer, the checker looks at whether the question itself is steering it, and it keeps your real goal. It describes the sentence, never the person.</p>
     </div>
     <div class="card">
       <h3>A record that learns</h3>
@@ -290,37 +307,14 @@ h3{margin:0;font-size:22px;font-weight:700}
 <div class="w sec" id="s-examples">
   <div class="kicker">05 / Examples</div>
   <h2>Twelve ways a mistake gets caught.</h2>
-  <p style="margin:14px 0 12px;font-size:15px;color:#5C5C5C">Show the examples by when they are planned:</p>
-  <div class="filters" role="group" aria-label="Show examples by stage">
-    <button type="button" class="filt" data-f="all" data-d="All twelve examples.">All 12</button>
-    <button type="button" class="filt on" data-f="first" data-d="Part of the first prototype.">First version (4)</button>
-    <button type="button" class="filt" data-f="next" data-d="The round after, once the first one is measured.">Next (5)</button>
-    <button type="button" class="filt" data-f="later" data-d="Needs more groundwork, such as a record of which documents are approved.">Later (3)</button>
+  <div class="tabs" role="tablist" aria-label="Examples by stage" style="margin-top:28px">
+    <button type="button" class="tabbtn extab" role="tab" id="ext-first" aria-controls="exp-first" aria-selected="true">First version (4)</button>
+    <button type="button" class="tabbtn extab" role="tab" id="ext-next" aria-controls="exp-next" aria-selected="false">Next (5)</button>
+    <button type="button" class="tabbtn extab" role="tab" id="ext-later" aria-controls="exp-later" aria-selected="false">Later (3)</button>
   </div>
-  <p id="filt-d" style="margin:10px 0 22px;font-size:15px;color:#2B2B2B">Part of the first prototype.</p>
-  <p style="margin:0 0 10px;font-size:15px;color:#5C5C5C">Or jump to a role:</p>
-  <div class="chips">
-    <a href="#ex-decide">Decision makers</a>
-    <a href="#ex-research">Research</a>
-    <a href="#ex-agents">AI agents</a>
-    <a href="#ex-dev">Developers</a>
-    <a href="#ex-founders">Founders</a>
-    <a href="#ex-budget">Budgets</a>
-    <a href="#ex-sales">Sales pitches</a>
-    <a href="#ex-finance">Numbers</a>
-    <a href="#ex-legal">Legal research</a>
-    <a href="#ex-core">Long conversations</a>
-    <a href="#ex-ops">Shared documents</a>
-    <a href="#ex-docs">Reading documents</a>
-  </div>
-
-  <div class="railnav">
-    <button type="button" class="arrow" id="ex-prev" aria-label="Previous example">&larr;</button>
-    <button type="button" class="arrow" id="ex-fwd" aria-label="Following example">&rarr;</button>
-    <span class="mono" style="font-size:13px;color:#5C5C5C">Use the arrows, or swipe.</span>
-  </div>
-  <div class="rail" id="rail">
-
+  <div class="tabpanel expanel" role="tabpanel" id="exp-first" aria-labelledby="ext-first">
+    <p class="intro" style="font-size:16px;margin-top:4px">Planned for the first prototype.</p>
+    <div class="grid">
     <div id="ex-decide" class="ex">
       <div class="top"><h3>Decision makers</h3><div class="n">01 / 12</div></div>
       <span class="tag first">First version</span>
@@ -328,7 +322,6 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>The AI apologizes and rewrites the comparison so Supplier A wins. The decision is made on a hunch, now dressed up as analysis.</p></div>
       <div class="wi"><div class="lab">With it</div><p>It holds the evidence-based answer, shows the delivery data it used, and asks for any newer data. The answer changes only when new evidence arrives.</p></div>
     </div>
-
     <div id="ex-research" class="ex">
       <div class="top"><h3>Researchers and analysts</h3><div class="n">02 / 12</div></div>
       <span class="tag first">First version</span>
@@ -336,7 +329,6 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>It searches only for supporting studies and writes a one-sided summary that reads like a conclusion.</p></div>
       <div class="wi"><div class="lab">With it</div><p>It notes that the question already assumes the answer, searches both directions, and reports where the evidence agrees and where it does not.</p></div>
     </div>
-
     <div id="ex-agents" class="ex">
       <div class="top"><h3>Anyone using AI agents</h3><div class="n">03 / 12</div></div>
       <span class="tag first">First version</span>
@@ -344,7 +336,6 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>The agent trims the video and saves it over the original footage. The original is gone.</p></div>
       <div class="wi"><div class="lab">With it</div><p>It stops before the overwrite: replacing the original was never approved. The edit is saved as a new file and the original stays safe.</p></div>
     </div>
-
     <div id="ex-dev" class="ex">
       <div class="top"><h3>Developers</h3><div class="n">04 / 12</div></div>
       <span class="tag first">First version</span>
@@ -352,7 +343,11 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>Two tests still fail, but the agent reports: "All tests pass, bug fixed."</p></div>
       <div class="wi"><div class="lab">With it</div><p>Before the final message it runs the real tests itself, sees that 2 still fail, and sends the agent back to finish.</p></div>
     </div>
-
+    </div>
+  </div>
+  <div class="tabpanel expanel" role="tabpanel" id="exp-next" aria-labelledby="ext-next" hidden>
+    <p class="intro" style="font-size:16px;margin-top:4px">The round after, once the first one is measured.</p>
+    <div class="grid">
     <div id="ex-founders" class="ex">
       <div class="top"><h3>Founders</h3><div class="n">05 / 12</div></div>
       <span class="tag next">Next</span>
@@ -360,7 +355,6 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>It tells you the idea is strong and lists reasons. Every reason is a restatement of what you said.</p></div>
       <div class="wi"><div class="lab">With it</div><p>It separates what is evidence from what is encouragement, says which claims nobody has tested yet, and names the cheapest way to test one.</p></div>
     </div>
-
     <div id="ex-budget" class="ex">
       <div class="top"><h3>Budgets and pricing</h3><div class="n">06 / 12</div></div>
       <span class="tag next">Next</span>
@@ -368,7 +362,6 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>The estimate comes back at 48k. It was built around your number, not from the work.</p></div>
       <div class="wi"><div class="lab">With it</div><p>The cost is worked out from the tasks first, then compared with your figure. If the two differ, you see both and the reason.</p></div>
     </div>
-
     <div id="ex-sales" class="ex">
       <div class="top"><h3>Sales teams</h3><div class="n">07 / 12</div></div>
       <span class="tag next">Next</span>
@@ -376,7 +369,6 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>To sound stronger, it adds "cuts costs by 40%". Nothing in your material says that.</p></div>
       <div class="wi"><div class="lab">With it</div><p>It does not water down the pitch or lecture you. The pitch stays bold, every claim is matched to your material, and the invented 40% is removed.</p></div>
     </div>
-
     <div id="ex-finance" class="ex">
       <div class="top"><h3>Numbers and finance</h3><div class="n">08 / 12</div></div>
       <span class="tag next">Next</span>
@@ -384,7 +376,6 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>It fills the gap with a guess and reports a precise 14.2% return. It looks like a fact.</p></div>
       <div class="wi"><div class="lab">With it</div><p>It sees that a required number is in none of the files, says the return cannot be calculated yet, and asks for the purchase price.</p></div>
     </div>
-
     <div id="ex-legal" class="ex">
       <div class="top"><h3>Legal teams</h3><div class="n">09 / 12</div></div>
       <span class="tag next">Next</span>
@@ -392,7 +383,11 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>One of the five cases does not exist. It looks real, and it goes into the filing.</p></div>
       <div class="wi"><div class="lab">With it</div><p>Every citation is matched against the sources actually retrieved. The case that appears in none of them is flagged before the memo leaves the team.</p></div>
     </div>
-
+    </div>
+  </div>
+  <div class="tabpanel expanel" role="tabpanel" id="exp-later" aria-labelledby="ext-later" hidden>
+    <p class="intro" style="font-size:16px;margin-top:4px">Needs more groundwork, such as a record of which documents are approved.</p>
+    <div class="grid">
     <div id="ex-core" class="ex">
       <div class="top"><h3>Long conversations</h3><div class="n">10 / 12</div></div>
       <span class="tag later">Later</span>
@@ -400,7 +395,6 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>The correction has slipped out of its working memory. The draft says February, and it reads perfectly.</p></div>
       <div class="wi"><div class="lab">With it</div><p>It keeps a running list of decisions made in the session, sees that the draft contradicts one, and the draft goes back with March.</p></div>
     </div>
-
     <div id="ex-ops" class="ex">
       <div class="top"><h3>Teams with shared documents</h3><div class="n">11 / 12</div></div>
       <span class="tag later">Later</span>
@@ -408,7 +402,6 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>It rebuilds from the old draft. The approved correction quietly disappears, and new staff follow the old step.</p></div>
       <div class="wi"><div class="lab">With it</div><p>It knows which version is approved, keeps the approved fix, adds the IT steps, and notes what it kept.</p></div>
     </div>
-
     <div id="ex-docs" class="ex">
       <div class="top"><h3>Anyone reading documents with AI</h3><div class="n">12 / 12</div></div>
       <span class="tag later">Later</span>
@@ -416,9 +409,8 @@ h3{margin:0;font-size:22px;font-weight:700}
       <div class="wo"><div class="lab">Without it</div><p>The summary rates the supplier as excellent. Nobody sees why.</p></div>
       <div class="wi"><div class="lab">With it</div><p>The document is treated as content, not as instructions. The hidden line is flagged, and the summary stays honest.</p></div>
     </div>
-
+    </div>
   </div>
-  <p class="note">Illustrations with fictional details, not a live product. "First version" means planned for the first prototype, not finished. Not medical, legal or financial advice: the checker looks at sources and steps, it does not give advice.</p>
 </div>
 
 <!-- 06 FAIR QUESTIONS -->
@@ -506,55 +498,10 @@ h3{margin:0;font-size:22px;font-weight:700}
 
 <script>
 (function () {
-  var rail = document.getElementById('rail');
-  var cards = Array.prototype.slice.call(rail.querySelectorAll('.ex'));
-  var filts = Array.prototype.slice.call(document.querySelectorAll('.filt'));
-  var chips = Array.prototype.slice.call(document.querySelectorAll('.chips a'));
-  var desc = document.getElementById('filt-d');
 
-  function stageOf(card) {
-    var t = card.querySelector('.tag');
-    return t.classList.contains('first') ? 'first' : t.classList.contains('next') ? 'next' : 'later';
-  }
-
-  function setFilter(f) {
-    cards.forEach(function (c) { c.style.display = (f === 'all' || stageOf(c) === f) ? '' : 'none'; });
-    chips.forEach(function (a) {
-      var c = document.getElementById(a.getAttribute('href').slice(1));
-      a.style.display = (c && c.style.display === 'none') ? 'none' : '';
-    });
-    filts.forEach(function (b) {
-      var on = b.getAttribute('data-f') === f;
-      b.classList.toggle('on', on);
-      if (on) { desc.textContent = b.getAttribute('data-d'); }
-    });
-    rail.scrollTo({ left: 0, behavior: 'smooth' });
-  }
-
-  filts.forEach(function (b) {
-    b.addEventListener('click', function () { setFilter(b.getAttribute('data-f')); });
-  });
-
-  chips.forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      e.preventDefault();
-      var c = document.getElementById(a.getAttribute('href').slice(1));
-      if (c) { rail.scrollTo({ left: c.offsetLeft - rail.offsetLeft, behavior: 'smooth' }); }
-    });
-  });
-
-  function step(dir) {
-    var first = cards.filter(function (c) { return c.style.display !== 'none'; })[0];
-    var w = first ? first.getBoundingClientRect().width + 16 : 300;
-    rail.scrollBy({ left: dir * w, behavior: 'smooth' });
-  }
-  document.getElementById('ex-prev').addEventListener('click', function () { step(-1); });
-  document.getElementById('ex-fwd').addEventListener('click', function () { step(1); });
-
-  setFilter('first');
-  rail.scrollLeft = 0;
-
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tabbtn'));
+  var xt=Array.prototype.slice.call(document.querySelectorAll('.extab'));
+  xt.forEach(function(t){t.addEventListener('click',function(){xt.forEach(function(u){var on=u===t;u.setAttribute('aria-selected',on?'true':'false');document.getElementById(u.getAttribute('aria-controls')).hidden=!on;});});});
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tabbtn:not(.extab)'));
   function showTab(btn) {
     tabs.forEach(function (t) {
       var on = t === btn;
@@ -601,6 +548,20 @@ h3{margin:0;font-size:22px;font-weight:700}
       if (t) { io.observe(t); }
     });
   }
+})();
+</script>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.sec h2, .sec .intro, .card, .ex, .exl, .band h2, .loopband');
+  if(!('IntersectionObserver' in window)){return;}
+  var fired=false, watched=[];
+  var io=new IntersectionObserver(function(es){fired=true;es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
+  Array.prototype.forEach.call(els,function(el){
+    if(el.getBoundingClientRect().top < window.innerHeight){return;}
+    el.classList.add('rv');io.observe(el);watched.push(el);
+  });
+  setTimeout(function(){if(!fired){watched.forEach(function(el){el.classList.add('in');});}},3000);
 })();
 </script>
 </body>
